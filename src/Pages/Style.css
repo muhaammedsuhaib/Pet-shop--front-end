@@ -1,0 +1,16 @@
+.top{
+    background: url('https://images.alphacoders.com/500/500405.jpg');
+
+    width: 100%;
+    height:100vh ;
+    background-size: cover;
+    background-position: center;
+}
+.topone{
+    background: url('https://media-be.chewy.com/wp-content/uploads/2017/10/23164230/fresh-dog-food.jpg');
+
+    width: 100%;
+    height:100vh ;
+    background-size: cover;
+    background-position: center;
+}
