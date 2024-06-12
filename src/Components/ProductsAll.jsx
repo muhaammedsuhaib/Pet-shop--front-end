@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   MDBCard,
   MDBCardBody,
@@ -15,18 +15,26 @@ import axios from 'axios';
 
 const ProductsAll = () => {
   const {products,setProducts,setItemUpdate}=useContext(passingProducts)
+
+
+
   const nav=useNavigate()
   const remove=(Id)=>{
-    let filterData=products.filter((item)=>item.Id !== Id )
-    setProducts(filterData)     
-  }
-
-  const featchProductsAll = async()=>{
-   const response = axios.get('/api/users/products/products')
-
+    // let filterData=products.filter((item)=>item.Id !== Id )
+    // setProducts(filterData)     
   }
 
   
+
+  const fetchTasks = async ()=>{
+    const response = await axios.get("//localhost:7878/api/users/products")
+    console.log(response.data.products);
+    setProducts(response.data.products);
+
+  }
+  useEffect(()=>{
+fetchTasks();
+  },[])
   return (
     <>
     <Admin/>
