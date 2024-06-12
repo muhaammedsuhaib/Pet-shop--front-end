@@ -1,7 +1,9 @@
 import React, { useContext, useRef } from 'react'
 import {
     MDBInput,
-    MDBBtn
+    MDBBtn,
+    MDBFile,
+    MDBRadio
   } from 'mdb-react-ui-kit';
 import Admin from './Admin';
 import { passingProducts } from './Main';
@@ -80,10 +82,28 @@ const EditProduct = () => {
 
            <form onSubmit={edit} >
            <MDBInput wrapperClass='mb-4'  type='text' label='Product name' defaultValue={ItemUpdate.title} />
-      <MDBInput wrapperClass='mb-4'  type='number' label='Product Stock' defaultValue={ItemUpdate.Stock} ref={stockRef}/>
-      <MDBInput wrapperClass='mb-4'  type='number' label='Price' defaultValue={ItemUpdate.OldPrice} ref={oldprieRef} />
-      <MDBInput wrapperClass='mb-4'  type='number' label='Discont price' defaultValue={ItemUpdate.Price} ref={priceRef}/>
-      <MDBInput wrapperClass='mb-3'  type='url' label='Image URL' defaultValue={ItemUpdate.Image} ref={imageRef} />
+           <MDBRadio
+                                name='category'
+                                required
+                                id='inlineRadio1'
+                                value='Cat'
+                                label='Cat'
+                                inline
+                            />
+                            <MDBRadio
+                                name='category'
+                                required
+                                id='inlineRadio2'
+                                value='Dog'
+                                label='Dog'
+                                inline
+                            />
+      {/* <MDBInput wrapperClass='mb-4'  type='number' label='Product Stock' defaultValue={ItemUpdate.Stock} ref={stockRef}/> */}
+      {/* <MDBInput wrapperClass='mb-4'  type='number' label='Price' defaultValue={ItemUpdate.OldPrice} ref={oldprieRef} /> */}
+      <MDBInput wrapperClass='mb-4'  type='number' label='Discont price' defaultValue={ItemUpdate.price} ref={priceRef}/>
+      {/* <MDBInput wrapperClass='mb-3'  type='url' label='Image URL' defaultValue={ItemUpdate.image} ref={imageRef} /> */}
+      <img src={ItemUpdate.image} width={'30%'}/>
+      <input type="file"/>
 
       <MDBBtn className='mb-4' type='submit'  onClick={click}>      Edit product    </MDBBtn>
     </form>

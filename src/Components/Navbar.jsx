@@ -44,9 +44,20 @@ const Navbar = () => {
           aria-controls='navbarSupportedContent'
           aria-expanded='false'
           aria-label='Toggle navigation'
-          onClick={() => setOpenBasic(!openBasic)}
         >
-          <MDBIcon icon='bars' fas />
+                <input
+              type="search"
+              placeholder="Search "
+              style={{
+                width: "140px",
+                height: "20px",
+                paddingRight: "20px",
+                borderRadius: "20px",
+                border: "2px solid black",
+              }}  aria-label='Search' onChange={searchinput}
+              className='mx-3'
+            />
+          <MDBIcon icon='bars' fas  onClick={() => setOpenBasic(!openBasic)}/>
         </MDBNavbarToggler>
 
         <MDBCollapse navbar open={openBasic}>
