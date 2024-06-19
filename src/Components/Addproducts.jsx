@@ -78,7 +78,6 @@ const Addproducts = () => {
             // setProducts([...products, response.data.newProduct]);
 
         } catch (error) {
-            console.log(error);
             Swal.fire({
                 text: error.response?.data?.message || 'Something went wrong',
                 icon: 'error',

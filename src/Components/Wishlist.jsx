@@ -74,7 +74,7 @@ function Wishlist() {
             className="bg-image rounded hover-zoom shadow-1-strong"
           >
             <img
-              src={item?.productId.image}
+              src={item?.productId?.image}
               fluid
               className="w-100"
             />
@@ -86,7 +86,7 @@ function Wishlist() {
                 <div className="d-flex justify-content-start align-items-start h-100">
                   <h5>
                     <span className="badge bg-light pt-2 ms-3 mt-3 text-dark">
-                    ₹{item.productId.price}
+                    ₹{item.productId?.price}
                     </span>
                   </h5>
                 </div>
@@ -102,7 +102,7 @@ function Wishlist() {
           <div className="container-fluid">
             <div className="row">
               <div className="col-10"><MDBBtn className="w-100"  color='link'>Add to cart  </MDBBtn></div>
-              <div className="col-2" onClick={()=>deleteWishlist(item.productId._id)}><MDBBtn className="w-100"  color='link'><MDBIcon fas icon="trash" animate="beat" color="danger" size="1x"  />  </MDBBtn></div>
+              <div className="col-2" onClick={()=>deleteWishlist(item.productId?._id)}><MDBBtn className="w-100"  color='link'><MDBIcon fas icon="trash" animate="beat" color="danger" size="1x"  />  </MDBBtn></div>
               </div>            
           </div>
          </MDBCol>

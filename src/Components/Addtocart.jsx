@@ -24,7 +24,7 @@ import {
 } from "mdb-react-ui-kit";
 
 const Addtocart = () => {
-  const {userData,adtest,cart,setCart,setAdtest}=useContext(passingProducts)
+  const {userData,adtest,cart,setCart,setAdtest}=useContext(passingProducts);
   const nav=useNavigate()
   // const [auth,setAuth]=useState(false)
 
@@ -57,28 +57,50 @@ const Addtocart = () => {
 
 
 
-//   const increment=(Id)=>{
-//     const cartData=userData.cart.find((item)=>item.Id ===Id)
-//     if(cartData.Stock>cartData.Qty){
-//       cartData.Qty +=1
-//     setAuth(!auth)
-//     }else{
-//       toast.warning('Out of stock')
-//     }    
-//   }
-//   const decrement=(Id)=>{
-//     const cartData=userData.cart.find((item)=>item.Id ===Id)
-//     if(cartData.Qty>1){
-//       cartData.Qty -=1
-//     }
-//     setAuth(!auth)   
-//   }
-//   const remove=(Id)=>{
-//     let filterData=userData.cart.filter((item)=>item.Id !== Id )
-//      userData.cart=filterData
-//      setAuth(!auth)
-//   }
+  const increment= async (id)=>{
+    // console.log(id);
+    console.log(userData._id);
+    const response = await axios.put(`http://localhost:7878/api/users/products/${userData._id}/cart/${id}/increment`)
+    try {
+      // alert(response.data.message)
+      console.log(response);
+    } catch (error) {
+      // alert(response.data.message)
+      console.log(response);
+
+    }
+   
+  }
+
+  const decrement= async (id)=>{
+    // console.log(id);
+    console.log(userData._id);
+    const response = await axios.put(`http://localhost:7878/api/users/products/${userData._id}/cart/${id}/decrement`)
+    try {
+      // alert(response.data.message)
+      console.log(response);
+    } catch (error) {
+      // alert(response.data.message)
+      console.log(response);
+
+    }
+   
+  }
  
+
+  const order= async ()=>{
+    const response= await axios.post(`http://localhost:7878/api/users/products/${userData._id}/payment`);
+    try {
+      console.log(response.data.url);
+      const url = response.data.url;
+      const confirmation = window.confirm("Payment session created. Redirecting to the payment gateway. Continue?");
+      if (confirmation) window.location.replace(url);
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  }
 //  const click=()=>{
 //  if(userData?.cart?.length===0){
 //   toast.warning('Add products') 
@@ -127,84 +149,144 @@ const deletecart = async (itemId)=>{
 }
   return (<>
   <br /><br />
-  <div style={{width:'100%', height:'700px',overflow:'auto'}}>
+  <div style={{width:'100%', height:'700px',overflow:'auto',padding:0}}>
     {Array.isArray(cart)&&cart.length !==0 ?<>
       <div>
-<section className="h-100" style={{ backgroundColor: "#eee" }}>
-  <MDBContainer className="py-5 h-100">
+
+
+<section className="h-100 h-custom" style={{ backgroundColor: "#eee" }}>
+  <MDBContainer className="py-2 h-100">
     <MDBRow className="justify-content-center align-items-center h-100">
-      <MDBCol md="12">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <MDBTypography tag="h3" className="fw-normal mb-0 text-black">
-            Shopping Cart
-          </MDBTypography>
-          <div>
-            <p className="mb-0">
-              <span className="text-muted">Sort by:</span>
-              <a href="#!" className="text-body">
-                price <i className="fas fa-angle-down mt-1"></i>
-              </a>
-            </p>
-          </div>
-        </div>
-
-        {cart?.map((item)=>(
-        <MDBCard className="rounded-3 mb-4">
-                <p className='text-end p-1 ' > <MDBBtn color='link'><MDBIcon fas icon="times" animate='fade' style={{fontSize:'26px'}} onClick={()=>deletecart(item.productId._id)} /></MDBBtn> </p>
+      <MDBCol>
+        <MDBCard>
           <MDBCardBody className="p-4">
-            <MDBRow className="justify-content-between align-items-center">
-              <MDBCol md="2" lg="2" xl="2">
-                <MDBCardImage className="rounded-3" fluid
-                  src={item?.productId?.image}
-                  alt={item?.productId?.title} />
-              </MDBCol>
-              <MDBCol md="3" lg="3" xl="3">
-                <p className="lead fw-normal mb-2">{item?.productId?.title}</p>
-                {/* <p>
-                  <span className="text-muted">Size: </span>M{" "}
-                  <span className="text-muted">Color: </span>Grey
-                </p> */}
-              </MDBCol>
-              <MDBCol md="3" lg="3" xl="2"
-                className="d-flex align-items-center justify-content-around">
-                <MDBBtn color="link" className="px-2" >
-                  <MDBIcon fas icon="minus" />
-                </MDBBtn>
-
-                <MDBInput min={0} defaultValue={item?.quantity} type="number" size="sm" />
-
-                <MDBBtn color="link" className="px-2">
-                  <MDBIcon fas icon="plus"  />
-                </MDBBtn>
-              </MDBCol>
-              <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
-                <MDBTypography tag="h5" className="mb-0">
-                ₹{item?.quantity * item?.productId?.price}
+            <MDBRow>
+              <MDBCol lg="7">
+                <MDBTypography tag="h5">
+                  <a href="#!" className="text-body" onClick={()=>nav('/all')}>
+                    <MDBIcon fas icon="long-arrow-alt-left me-2" /> Continue
+                    shopping
+                  </a>
                 </MDBTypography>
+
+                <hr />
+
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <p className="mb-1">Shopping cart</p>
+                    <p className="mb-0">You have {cart.length} items in your cart</p>
+                  </div>
+                  <div>
+                    <p>
+                      <span className="text-muted">Sort by:</span>
+                      <a href="#!" className="text-body">
+                        price
+                        <MDBIcon fas icon="angle-down mt-1" />
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                {cart?.map((item)=>(<>
+                <MDBCard className="mb-3">
+                  <MDBCardBody>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex flex-row align-items-center">
+                        <div>
+                          <MDBCardImage
+                            src={item.productId.image}
+                            fluid className="rounded-3" style={{ width: "85px" }}
+                            alt="Shopping item" />
+                        </div>
+                        <div className="ms-3">
+                          <MDBTypography tag="h5">
+                            {item.productId.title}
+                          </MDBTypography>
+                          <p className="small mb-0">{item.productId.category} Food</p>
+                        </div>
+                      </div>
+                      <div className="d-flex flex-row align-items-center">
+                        <div style={{ width: "50px" }}>
+
+                          <MDBTypography tag="h5" className="fw-normal mb-0">
+                            
+                          <MDBBtn color="link" >
+                        <MDBIcon fas icon="minus" onClick={()=>decrement(item.productId._id)}/>
+                      </MDBBtn>
+                            {item.quantity} 
+                            <MDBBtn color="link" onClick={()=>increment(item.productId._id)}>
+                        <MDBIcon fas icon="plus"  />
+                      </MDBBtn>
+                          </MDBTypography>
+                        </div>
+                        <div style={{ width: "80px" }}>
+                          <MDBTypography tag="h5" className="mb-0">
+                          ₹{item?.quantity * item?.productId?.price}
+                          </MDBTypography>
+                        </div>
+                        <a href="#!" style={{ color: "#cecece" }}>
+                          <MDBIcon fas icon="trash-alt" onClick={()=>deletecart(item.productId._id)} />
+                        </a>
+                      </div>
+                    </div>
+                  </MDBCardBody>
+                </MDBCard> </>))}
               </MDBCol>
-              <MDBCol md="1" lg="1" xl="1" className="text-end">
-                <a href="#!" className="text-danger">
-                  <MDBIcon fas icon="trash text-white" size="lg" />
-                </a>
+
+              <MDBCol lg="5">
+                <MDBCard className="bg-primary text-white rounded-3">
+                  <MDBCardBody>
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                      <MDBTypography tag="h5" className="mb-0">
+                        Card details
+                      </MDBTypography>
+                      <MDBIcon fas icon="user-circle" size='2x' />
+                    </div>
+
+                    <p className="small">Card type</p>
+                    <a href="#!" type="submit" className="text-white">
+                      <MDBIcon fab icon="cc-mastercard fa-2x me-2" />
+                    </a>
+                    <a href="#!" type="submit" className="text-white">
+                      <MDBIcon fab icon="cc-visa fa-2x me-2" />
+                    </a>
+                    <a href="#!" type="submit" className="text-white">
+                      <MDBIcon fab icon="cc-amex fa-2x me-2" />
+                    </a>
+                    <a href="#!" type="submit" className="text-white">
+                      <MDBIcon fab icon="cc-paypal fa-2x me-2" />
+                    </a>
+
+                    <hr />
+
+                      {cart?.map((item)=>(<>
+                        <div className="d-flex justify-content-between">
+                      <p className="mb-2">{item.productId.title}</p>
+                      {/* <p className="mb-2">{item.quantity}</p> */}
+                      <p className="mb-2">₹{item.quantity*item.productId.price}</p>
+                    </div>
+                      </>))}                   
+
+                
+                    
+                    <div className="d-flex justify-content-between">
+                      <p className="mb-2">Total</p>
+                      <p className="mb-2">₹{cart?.reduce((acc, curr) => acc + curr.productId.price * curr.quantity, 0)}</p>
+                    </div>
+
+                    <MDBBtn color="info" block size="lg" onClick={()=>order()}>
+                      <div className="d-flex justify-content-between">
+                        <span>{}</span>
+                        <span>
+                          Order{" "}
+                          <i className="fas fa-long-arrow-alt-right ms-2"></i>
+                        </span>
+                      </div>
+                    </MDBBtn>
+                  </MDBCardBody>
+                </MDBCard>
               </MDBCol>
             </MDBRow>
-          </MDBCardBody>
-        </MDBCard>
-      ))}
-        {/* <MDBCard className="mb-4">
-          <MDBCardBody className="p-4 d-flex flex-row">
-            <MDBInput label="Discound code" wrapperClass="flex-fill" size="lg" />
-            <MDBBtn className="ms-3" color="warning" outline size="lg">
-              Apply
-            </MDBBtn>
-          </MDBCardBody>
-        </MDBCard> */}
-
-        <MDBCard>
-          <MDBCardBody>
-            <MDBBtn className="ms-0" color="warning" block size="lg">
-              Apply
-            </MDBBtn>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>

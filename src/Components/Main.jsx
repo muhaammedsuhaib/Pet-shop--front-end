@@ -21,6 +21,7 @@ import Navbar from './Navbar';
 import axios from 'axios';
 import Wishlist from './Wishlist';
 import Adminlogin from '../Pages/Adminlogin';
+import SuccessMessage from './PaymentSuccess';
 
 
 export const passingProducts=createContext()
@@ -75,6 +76,7 @@ const Main = () => {
         <Route path='/address' element={<AddAddress/>}/>
         <Route path='/wishlist' element={<Wishlist/>}/>
         <Route path='/adminLogin' element={<Adminlogin/>}/>
+        <Route path='/SuccessMessage' element={<SuccessMessage/>}/>
     </Routes>
     <Footer/>
     </passingProducts.Provider>   
