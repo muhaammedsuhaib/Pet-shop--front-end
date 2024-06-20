@@ -31,9 +31,21 @@ const ProductsAll = () => {
     setProducts(response.data.products);
 
   }
+
+
+  const removeProduct = async(id)=>{
+    const response = await axios.delete(`http://localhost:7878/api/admin/products/delete/${id}`)
+    try {
+      console.log(response.data.message);
+      alert(response.data.message)
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+
+  }
   useEffect(()=>{
 fetchTasks();
-  },[])
+  },[removeProduct])
   return (
     <>
     <Admin/>
@@ -44,7 +56,7 @@ fetchTasks();
    {products.map((item)=>(
     <>
     <MDBCard>   
-            <div class="container" style={{textAlign:'right'}} > <MdDeleteForever size={25} color='red' onClick={()=>remove(item.Id)}/></div>        
+            <div class="container" style={{textAlign:'right'}} > <MdDeleteForever size={25} color='red' onClick={()=>removeProduct(item._id)}/></div>        
              <MDBCardBody>      
       <div class="container">
     <div class="row">
