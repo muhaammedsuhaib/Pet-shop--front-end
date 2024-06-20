@@ -97,14 +97,19 @@ const Navbar = () => {
           
           </form>          
             <MDBNavbarLink >
-                <FaHeart size={28} style={{margin:'10'}}  onClick={()=>userData?nav('/wishlist'):nav('/login')}/>   
+            {userData&& <FaHeart size={28} style={{margin:'15'}}  onClick={()=>nav('/wishlist')}/>}                      
                 </MDBNavbarLink>
             <MDBNavbarLink >
-                {!userData? <MDBIcon fas icon="user-plus" animate='beat' style={{margin:'16',fontSize:'25px'}} onClick={()=>nav('/login')}/>:<FaCircleUser size={28} style={{margin:'15'}}  onClick={()=>nav('/login')}/>}      
+                {userData&&  <MDBIcon fas icon="truck" animate='beat' style={{margin:'15',fontSize:'25px'}} onClick={()=>nav('/OrderDetails')}/>}      
                 </MDBNavbarLink>
-              <MDBNavbarLink>              
-                    <FaCartShopping size={28} style={{margin:'15'}} onClick={()=>userData?nav('/addtocart'):nav('/login')}/>
-                    </MDBNavbarLink>                                  
+                <MDBNavbarLink>   
+              {userData&& <FaCartShopping size={28} style={{margin:'15'}} onClick={()=>nav('/addtocart')}/>}                
+                    
+                    </MDBNavbarLink>  
+            <MDBNavbarLink >
+                {!userData? <MDBIcon fas icon="user-plus" animate='beat' style={{padding:'10px',fontSize:'25px'}} onClick={()=>nav('/login')}/>:<FaCircleUser size={28} style={{margin:'15'}}  onClick={()=>nav('/login')}/>}      
+                </MDBNavbarLink>
+                                              
         </MDBCollapse>
       </MDBContainer>
     </MDBNavbar>

@@ -5,27 +5,28 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const SuccessMessage = () => {
+  const navigate = useNavigate();
 
-  const orderDetaiils = async()=>{
-    const response = await axios.get(`http://localhost:7878/api/users/products/payment/success`)
+  const orderDetails = async () => {
     try {
+      const response = await axios.get('http://localhost:7878/api/users/products/payment/success');
       console.log(response.data.message);
     } catch (error) {
-      console.log(response.data);
+      console.error('Error fetching order details:', error.response?.data || error.message);
     }
-  }
+  };
 
-  useEffect(()=>{
-    orderDetaiils();
-  },[])
-    const nav=useNavigate()
+  useEffect(() => {
+    orderDetails();
+  }, []);
+
   return (
     <MDBContainer className="my-5 d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
       <div className="text-center p-4 bg-success text-white rounded">
         <MDBTypography tag="h4" className="mb-4">
           Order completed successfully!
         </MDBTypography>
-        <MDBBtn color="light" outline onClick={()=>nav('/')}>
+        <MDBBtn color="light" outline onClick={() => navigate('/')}>
           Go to Home
         </MDBBtn>
       </div>

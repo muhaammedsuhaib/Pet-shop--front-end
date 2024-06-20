@@ -175,8 +175,8 @@ const deletecart = async (itemId)=>{
 
                           <MDBTypography tag="h5" className="fw-normal mb-0">
                             
-                          <MDBBtn color="link" >
-                        <MDBIcon fas icon="minus" onClick={()=>decrement(item.productId._id)}/>
+                          <MDBBtn color="link" onClick={()=>decrement(item.productId._id)} >
+                        <MDBIcon fas icon="minus" />
                       </MDBBtn>
                             {item.quantity} 
                             <MDBBtn color="link" onClick={()=>increment(item.productId._id)}>

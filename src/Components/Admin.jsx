@@ -4,6 +4,7 @@ import { IoHomeSharp } from "react-icons/io5";
 import { FaListAlt } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import { TbTruckDelivery } from "react-icons/tb";
 
 const Admin = () => {
   const nav=useNavigate()
@@ -15,6 +16,11 @@ const Admin = () => {
       </Nav.Item>
       <Nav.Item >
         <Nav.Link onClick={()=>nav('/productsall')} ><FaListAlt size={20} color='black' />
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link onClick={()=>nav('/Allorders')}>          
+        <TbTruckDelivery size={25} color='black' />
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
