@@ -27,8 +27,7 @@ const ProductsAll = () => {
   
 
   const fetchTasks = async ()=>{
-    const response = await axios.get("//localhost:7878/api/users/products")
-    console.log(response.data.products);
+    const response = await axios.get("//localhost:7878/api/users/products");
     setProducts(response.data.products);
 
   }
@@ -60,7 +59,7 @@ M.R.P.: ₹<span className="text-decoration-line-through">{item.price +500}</spa
        <per><strong>Description:</strong>{item.description}</per> <br/>
        <per><strong>{item.category} Food</strong></per> <br/>
           {/* <per><strong>Stock:{item.Stock}</strong></per><br/>       */}
-<div class="container" style={{textAlign:'left'}} > <FaEdit size={20} onClick={()=>{nav('/edit');setItemUpdate(item)}}/></div>
+<div class="container" style={{textAlign:'left'}} > <FaEdit size={20} onClick={()=>{nav(`/edit/:`)}}/></div>
       </div>
     </div>
   </div>  

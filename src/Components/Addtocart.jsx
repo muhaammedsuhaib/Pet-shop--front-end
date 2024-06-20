@@ -26,70 +26,35 @@ import {
 const Addtocart = () => {
   const {userData,adtest,cart,setCart,setAdtest}=useContext(passingProducts);
   const nav=useNavigate()
-  // const [auth,setAuth]=useState(false)
 
-  const fetchCart = async () => {
-    if (!userData?._id) return; // Ensure userData._id is available before making the request
+
+  const fetchCart = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:7878/api/users/products/${userData._id}/cart`);
-      setCart(response.data); // Directly set the cart to the fetched data
+      const response = await axios.get(`http://localhost:7878/api/users/products/${id}/cart`);
+      setCart(response.data);
     } catch (error) {
       console.error("Failed to fetch cart data:", error);
-      // Optionally handle the error (e.g., show a notification to the user)
     }
   };
+
+
   useEffect(() => {
-    fetchCart();
+    fetchCart(userData?.userId);
   }, [cart,setCart]);
-  // console.log(isEmpty);
-
-// const increment= async(id)=>{
-//   console.log('jhh');
-//   const response= await axios.patch(`http://localhost:7878/api/users/products/${userData?._id}/cart/${id}/increment`);
-//   try {
-//     console.log(response);
-//     toast.success(response.data.message);
-//   } catch (error) {
-//     toast.error(response.data.message);
-//   }
-// }
-
 
 
 
   const increment= async (id)=>{
-    // console.log(id);
-    console.log(userData._id);
-    const response = await axios.put(`http://localhost:7878/api/users/products/${userData._id}/cart/${id}/increment`)
-    try {
-      // alert(response.data.message)
-      console.log(response);
-    } catch (error) {
-      // alert(response.data.message)
-      console.log(response);
-
-    }
-   
+    const response = await axios.put(`http://localhost:7878/api/users/products/${userData?.userId}/cart/${id}/increment`)
   }
 
   const decrement= async (id)=>{
-    // console.log(id);
-    console.log(userData._id);
-    const response = await axios.put(`http://localhost:7878/api/users/products/${userData._id}/cart/${id}/decrement`)
-    try {
-      // alert(response.data.message)
-      console.log(response);
-    } catch (error) {
-      // alert(response.data.message)
-      console.log(response);
-
+    const response = await axios.put(`http://localhost:7878/api/users/products/${userData?.userId}/cart/${id}/decrement`)
     }
-   
-  }
  
 
   const order= async ()=>{
-    const response= await axios.post(`http://localhost:7878/api/users/products/${userData._id}/payment`);
+    const response= await axios.post(`http://localhost:7878/api/users/products/${userData?.userId}/payment`);
     try {
       console.log(response.data.url);
       const url = response.data.url;
@@ -134,7 +99,7 @@ const Addtocart = () => {
 
 
 const deletecart = async (itemId)=>{
-  const response= await axios.delete(`http://localhost:7878/api/users/products/${userData._id}/cart/${itemId}/remove`)
+  const response= await axios.delete(`http://localhost:7878/api/users/products/${userData?.userId}/cart/${itemId}/remove`)
   try {
     toast.success(response.status);
     console.log(response);

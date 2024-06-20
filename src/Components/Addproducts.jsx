@@ -67,15 +67,15 @@ const Addproducts = () => {
 
             const response = await axios.post('http://localhost:7878/api/admin/createProducts', formData, config);
 
-            console.log(response);
+    
             Swal.fire({
                 text: response.data.message,
                 icon: 'success',
                 confirmButtonText: 'OK'
             });
-
-            // Optionally, update the products state
-            // setProducts([...products, response.data.newProduct]);
+            setTimeout(()=>{
+                nav('/productsall')
+            },1000)
 
         } catch (error) {
             Swal.fire({

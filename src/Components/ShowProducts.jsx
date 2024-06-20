@@ -22,7 +22,7 @@ const ShowProducts = () => {
     const {id} =useParams()
     
     const [proShow,setProShow]=useState('');
-
+    
 const {userData,adtest,setAdtest}=useContext(passingProducts);
 
     const pro= async (id) =>{
@@ -31,7 +31,7 @@ const {userData,adtest,setAdtest}=useContext(passingProducts);
     }
 
     const cartshowing= async(productId)=>{
-    const response = await axios.post(`http://localhost:7878/api/users/products/${userData._id}/cart/${productId}`)
+    const response = await axios.post(`http://localhost:7878/api/users/products/${userData.userId}/cart/${productId}`)
     try {
       setAdtest(!adtest)
       toast.success(response.data.message);
@@ -41,7 +41,7 @@ const {userData,adtest,setAdtest}=useContext(passingProducts);
     }
 
     const addtowishlist= async (productId)=>{
-  const response =await axios.post(`http://localhost:7878/api/users/products/${userData._id}/wishlists/${productId}`)
+  const response =await axios.post(`http://localhost:7878/api/users/products/${userData.userId}/wishlists/${productId}`)
     try {
       console.log(response);
       toast.success(response.data.message);

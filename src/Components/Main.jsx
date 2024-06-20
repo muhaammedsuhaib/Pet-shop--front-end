@@ -37,26 +37,31 @@ const Main = () => {
     const [adtest,setAdtest]=useState(false)
     const [cart,setCart]=useState([]);
     const [wishlist,setWishlist]=useState([]);
+    const [auth,setAuth]=useState(false);
 
     const fetchTasks = async ()=>{
       const response = await axios.get("//localhost:7878/api/users/products")
       setProducts(response.data.products);
-
     }
     
-
+    useEffect(() => {
+      const storedUserData = localStorage.getItem("userData");
+      if (storedUserData) {
+        const parsedUserData = JSON.parse(storedUserData);
+        setUserData(parsedUserData);
+      }
+    }, [setUserData]);
     
+         
     
-    
-    useEffect(() => {     
-      
+    useEffect(() => {         
       fetchTasks();
   }, [])
 
   return (
     <>
     <BrowserRouter>
-    <passingProducts.Provider value={{products,setProducts,loginData,setLoginData,userData,setUserData,search,setSearch,ItemUpdate,setItemUpdate,address,setAddress,buy,setBuy,adtest,setAdtest,cart,setCart,wishlist,setWishlist}}>
+    <passingProducts.Provider value={{products,setProducts,loginData,setLoginData,userData,setUserData,search,setSearch,ItemUpdate,setItemUpdate,address,setAddress,buy,setBuy,adtest,setAdtest,cart,setCart,wishlist,setWishlist,auth,setAuth}}>
    <Navbar/>
     <Routes>
         <Route path='/' element={<Home/>}/>

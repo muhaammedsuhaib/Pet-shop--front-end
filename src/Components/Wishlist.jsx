@@ -20,10 +20,9 @@ function Wishlist() {
     // const isEmpty= wishlist?.length===0;
 
     // console.log(isEmpty);
-  const fetchwishlist = async () => {
-    if (!userData?._id) return; // Ensure userData._id is available before making the request
-    try {
-      const response = await axios.get(`http://localhost:7878/api/users/products/${userData._id}/wishlist`);
+  const fetchwishlist = async (id) => {
+   try {
+      const response = await axios.get(`http://localhost:7878/api/users/products/${id}/wishlist`);
       setWishlist(response.data); // Directly set the cart to the fetched data
       setAdtest(!adtest)
       // console.log(response.data);
@@ -35,7 +34,7 @@ function Wishlist() {
   };
 
   const deleteWishlist = async (itemId)=>{
-    const response= await axios.delete(`http://localhost:7878/api/users/products/${userData._id}/wishlist/${itemId}/remove`)
+    const response= await axios.delete(`http://localhost:7878/api/users/products/${userData?.userId}/wishlist/${itemId}/remove`)
     try {
       // console.log(response);
       setAdtest(!adtest)
@@ -52,7 +51,7 @@ function Wishlist() {
 
 
   useEffect(() => {
-    fetchwishlist();
+    fetchwishlist(userData?.userId);
   }, [wishlist,setWishlist]);
   // console.log(wishlist);
   return (<>  <br />
